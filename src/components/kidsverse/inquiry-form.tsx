@@ -22,9 +22,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useActionState, useEffect } from "react";
+import { useActionState, useEffect, useState } from "react";
 import { submitInquiry, type InquiryFormState } from "@/app/actions";
 import { useToast } from "@/hooks/use-toast";
+import { useFormStatus } from "react-dom";
 
 const inquiryFormSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters." }),
@@ -44,9 +45,23 @@ interface InquiryFormProps {
   defaultSubject?: string;
 }
 
+function SubmitButton() {
+    const { pending } = useFormStatus();
+    return (
+         <Button type="submit" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground" disabled={pending}>
+           {pending ? "Sending..." : "Send Message"}
+        </Button>
+    )
+}
+
 export function InquiryForm({ defaultSubject }: InquiryFormProps) {
   const [state, formAction] = useActionState(submitInquiry, initialState);
   const { toast } = useToast();
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const form = useForm<InquiryFormValues>({
     resolver: zodResolver(inquiryFormSchema),
@@ -59,18 +74,29 @@ export function InquiryForm({ defaultSubject }: InquiryFormProps) {
   });
 
    useEffect(() => {
-    if (state.message) {
+    // This effect ensures defaultSubject from URL params is applied after the form initializes
+    if (defaultSubject) {
+      form.setValue('subject', defaultSubject, { shouldValidate: true });
+    }
+   }, [defaultSubject, form]);
+
+   useEffect(() => {
+    if (state.message && (state.success || (state.issues && state.issues.length > 0))) {
       toast({
         title: state.success ? "Message Sent!" : "Error",
         description: state.message,
         variant: state.success ? "default" : "destructive",
       });
       if (state.success) {
-        form.reset();
+        form.reset({
+          name: "",
+          email: "",
+          subject: "",
+          message: "",
+        });
       }
     }
   }, [state, toast, form]);
-
 
   return (
     <Form {...form}>
@@ -107,7 +133,7 @@ export function InquiryForm({ defaultSubject }: InquiryFormProps) {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Subject</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <Select onValueChange={field.onChange} value={field.value} key={field.value}>
                 <FormControl>
                   <SelectTrigger>
                     <SelectValue placeholder="Select a subject" />
@@ -141,9 +167,7 @@ export function InquiryForm({ defaultSubject }: InquiryFormProps) {
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground" disabled={form.formState.isSubmitting}>
-           {form.formState.isSubmitting ? "Sending..." : "Send Message"}
-        </Button>
+        {isMounted ? <SubmitButton /> : <Button className="w-full" disabled>Loading...</Button>}
       </form>
     </Form>
   );
