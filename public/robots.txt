@@ -1,0 +1,8 @@
+# See https://www.robotstxt.org/robotstxt.html for documentation on how to use this file.
+# IMPORTANT: Replace 'https://brightplanethub.com' with your actual domain name before deployment.
+
+User-agent: *
+Allow: /
+Disallow: /api/
+
+Sitemap: https://brightplanethub.com/sitemap.xml
