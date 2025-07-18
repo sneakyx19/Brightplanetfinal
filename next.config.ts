@@ -25,6 +25,17 @@ const nextConfig: NextConfig = {
       }
     ],
   },
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+        // This is to suppress the 'Can't resolve '...' warnings for optional packages in otel.
+        config.resolve.alias = {
+            ...config.resolve.alias,
+            '@opentelemetry/exporter-jaeger': false,
+            '@opentelemetry/exporter-zipkin': false,
+        };
+    }
+    return config;
+  }
 };
 
 export default nextConfig;

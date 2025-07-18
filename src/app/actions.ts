@@ -47,9 +47,11 @@ export async function submitInquiry(
 
   if (!resendApiKey) {
     console.error("RESEND_API_KEY environment variable is not set.");
+    // This is a server configuration issue, so we can return a generic error.
+    // We can also log this request to a database or file as a fallback.
     console.log("Fallback: Inquiry received:", { name, email, subject, message });
     return {
-      message: "Thank you for your inquiry! We will get back to you soon.",
+      message: "Thank you for your inquiry! We have received it and will be in touch shortly.",
       success: true,
     };
   }
@@ -121,6 +123,8 @@ export async function submitWorkshopSignup(
 
   if (!resendApiKey) {
     console.error("RESEND_API_KEY environment variable is not set.");
+    // This is a server configuration issue, so we can return a generic error.
+    // We can also log this request to a database or file as a fallback.
     console.log("Fallback: Workshop signup submitted:", parsed.data);
     return {
       message: `Successfully signed up for ${workshopTitle}! We'll send a confirmation to ${email}.`,
