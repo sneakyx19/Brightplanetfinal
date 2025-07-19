@@ -14,6 +14,7 @@ import React from 'react';
 const inquiryFormSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters."),
   email: z.string().email("Invalid email address."),
+  mobileNumber: z.string().optional(),
   subject: z.string().min(1, "Please select a subject."),
   message: z.string().min(10, "Message must be at least 10 characters."),
 });
@@ -40,16 +41,14 @@ export async function submitInquiry(
     };
   }
 
-  const { name, email, subject, message } = parsed.data;
+  const { name, email, mobileNumber, subject, message } = parsed.data;
   const toEmail = process.env.NOTIFICATION_EMAIL_TO;
   const fromEmail = process.env.NOTIFICATION_EMAIL_FROM;
   const resendApiKey = process.env.RESEND_API_KEY;
 
   if (!resendApiKey) {
     console.error("RESEND_API_KEY environment variable is not set.");
-    // This is a server configuration issue, so we can return a generic error.
-    // We can also log this request to a database or file as a fallback.
-    console.log("Fallback: Inquiry received:", { name, email, subject, message });
+    console.log("Fallback: Inquiry received:", { name, email, mobileNumber, subject, message });
     return {
       message: "Thank you for your inquiry! We have received it and will be in touch shortly.",
       success: true,
@@ -70,8 +69,8 @@ export async function submitInquiry(
       from: `Bright Planet Hub Contact Form <${fromEmail}>`,
       to: [toEmail],
       reply_to: email,
-      subject: `New Inquiry: ${subject}`,
-      react: InquiryNotificationEmail({ name, email, subject, message }) as React.ReactElement,
+      subject: `New Inquiry: ${subject || 'General Inquiry'}`,
+      react: InquiryNotificationEmail({ name, email, mobileNumber, subject, message }) as React.ReactElement,
     });
   } catch (exception) {
     console.error("Email sending exception:", exception);
@@ -92,7 +91,7 @@ export async function submitInquiry(
 const workshopSignupSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters."),
   email: z.string().email("Invalid email address."),
-  mobileNumber: z.string().min(8, "Please enter a valid mobile number."),
+  mobileNumber: z.string().min(7, "Please enter a valid mobile number."),
   workshopId: z.string().min(1, "Workshop ID is missing."),
   workshopTitle: z.string().min(1, "Workshop title is missing."),
 });
@@ -123,8 +122,6 @@ export async function submitWorkshopSignup(
 
   if (!resendApiKey) {
     console.error("RESEND_API_KEY environment variable is not set.");
-    // This is a server configuration issue, so we can return a generic error.
-    // We can also log this request to a database or file as a fallback.
     console.log("Fallback: Workshop signup submitted:", parsed.data);
     return {
       message: `Successfully signed up for ${workshopTitle}! We'll send a confirmation to ${email}.`,
@@ -183,11 +180,17 @@ export async function generateActivityPlanAction(
   prevState: ActivityPlanState,
   data: FormData
 ): Promise<ActivityPlanState> {
+  // Clear previous results on new submission
+  const initialState: ActivityPlanState = {
+    success: false,
+  };
+
   const formData = Object.fromEntries(data);
   const parsed = activityPlanSchema.safeParse(formData);
 
   if (!parsed.success) {
     return {
+      ...initialState,
       success: false,
       errors: parsed.error.flatten().fieldErrors,
       message: "Invalid input."
@@ -201,6 +204,7 @@ export async function generateActivityPlanAction(
     };
     const result = await genkitGenerateActivityPlan(input);
     return {
+      ...initialState,
       plan: result,
       success: true,
       message: "Activity plan generated successfully!"
@@ -208,6 +212,7 @@ export async function generateActivityPlanAction(
   } catch (error) {
     console.error("Error generating activity plan:", error);
     return {
+      ...initialState,
       success: false,
       message: "Failed to generate activity plan. Please try again.",
       errors: { general: (error instanceof Error ? error.message : "Unknown error") }
@@ -217,7 +222,7 @@ export async function generateActivityPlanAction(
 
 // Brochure Download Form
 const brochureFormSchema = z.object({
-  mobileNumber: z.string().min(8, "Please enter a valid mobile number."),
+  mobileNumber: z.string().min(7, "Please enter a valid mobile number."),
   email: z.string().email("Please enter a valid email.").optional().or(z.literal('')),
   courseName: z.string(),
 });
@@ -250,8 +255,6 @@ export async function submitBrochureRequest(
 
   if (!resendApiKey) {
     console.error("RESEND_API_KEY environment variable is not set.");
-    // This is a server configuration issue, so we can return a generic error.
-    // We can also log this request to a database or file as a fallback.
     console.log("Fallback: Brochure Request received:", { mobileNumber, email, courseName });
     return {
       message: "Thank you for your request! We have received it and will be in touch shortly.",

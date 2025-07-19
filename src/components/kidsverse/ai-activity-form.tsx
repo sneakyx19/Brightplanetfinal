@@ -52,21 +52,22 @@ export function AiActivityForm() {
   const [state, formAction] = useActionState(generateActivityPlanAction, initialState);
   const [generatedPlan, setGeneratedPlan] = useState<string | null>(null);
   const { toast } = useToast();
-  const { pending } = useFormStatus();
-
+  
   const form = useForm<ActivityPlanFormValues>({
     resolver: zodResolver(activityPlanSchema),
     defaultValues: {
-      childAge: '' as any, // Changed from undefined to an empty string
+      childAge: '' as any,
       preferences: "",
     },
   });
 
+  const { pending } = useFormStatus();
+
   useEffect(() => {
     if (state.message && !state.success) {
       toast({
-        title: "Error",
-        description: state.message,
+        title: "Error Generating Plan",
+        description: state.errors?.general || state.message,
         variant: "destructive",
       });
     }
@@ -81,7 +82,6 @@ export function AiActivityForm() {
   }, [state, toast, form]);
 
   useEffect(() => {
-    // When a new generation starts, clear the old plan
     if (pending) {
       setGeneratedPlan(null);
     }
@@ -101,10 +101,11 @@ export function AiActivityForm() {
                 action={formAction}
                 className="space-y-6"
                 onSubmit={(evt) => {
-                    // Clear previous results when submitting
-                    setGeneratedPlan(null);
-                    form.handleSubmit(() => {
-                        formAction(new FormData(evt.currentTarget));
+                    form.handleSubmit((data) => {
+                        const formData = new FormData();
+                        formData.append('childAge', String(data.childAge));
+                        formData.append('preferences', data.preferences);
+                        formAction(formData);
                     })(evt);
                 }}
               >

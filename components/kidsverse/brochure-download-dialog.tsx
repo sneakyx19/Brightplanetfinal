@@ -36,7 +36,7 @@ interface BrochureDownloadDialogProps {
 }
 
 const brochureFormSchema = z.object({
-  mobileNumber: z.string().min(8, "Please enter a valid mobile number."),
+  mobileNumber: z.string().min(7, "Please enter a valid mobile number."),
   email: z.string().email("Invalid email address.").optional().or(z.literal('')),
   courseName: z.string(),
 });

@@ -4,6 +4,7 @@ import * as React from 'react';
 interface InquiryNotificationEmailProps {
   name: string;
   email: string;
+  mobileNumber?: string;
   subject: string;
   message: string;
 }
@@ -11,6 +12,7 @@ interface InquiryNotificationEmailProps {
 export const InquiryNotificationEmail: React.FC<Readonly<InquiryNotificationEmailProps>> = ({
   name,
   email,
+  mobileNumber,
   subject,
   message,
 }) => (
@@ -22,6 +24,7 @@ export const InquiryNotificationEmail: React.FC<Readonly<InquiryNotificationEmai
       <div style={detailBox}>
         <p style={detailItem}><strong>From:</strong> {name}</p>
         <p style={detailItem}><strong>Email:</strong> <a href={`mailto:${email}`} style={emailLink}>{email}</a></p>
+        {mobileNumber && <p style={detailItem}><strong>Mobile:</strong> {mobileNumber}</p>}
         <p style={detailItem}><strong>Subject:</strong> {subject}</p>
       </div>
 

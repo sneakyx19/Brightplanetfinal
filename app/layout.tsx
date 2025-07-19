@@ -1,3 +1,4 @@
+
 import type { Metadata } from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
@@ -19,6 +20,9 @@ export const metadata: Metadata = {
   },
   description: siteConfig.description,
   keywords: siteConfig.keywords,
+  // The icons are now handled directly in the head of the document for faster loading.
+  // This helps prevent the default Firebase favicon from appearing first.
+  // We leave this here for Next.js to still have context, but the direct links are more important.
   icons: {
     icon: '/images/Logo-BP.png',
     shortcut: '/images/Logo-BP.png',
@@ -90,6 +94,8 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${ptSans.variable}`}>
       <head>
+        <link rel="icon" href="/images/Logo-BP.png" type="image/png" sizes="any" />
+        <link rel="apple-touch-icon" href="/images/Logo-BP.png" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
