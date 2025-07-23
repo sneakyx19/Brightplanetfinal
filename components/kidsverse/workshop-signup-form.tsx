@@ -22,7 +22,7 @@ import type { WorkshopInfo } from "@/lib/data";
 const workshopSignupSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters." }),
   email: z.string().email({ message: "Invalid email address." }),
-  mobileNumber: z.string().min(8, "Please enter a valid mobile number."),
+  mobileNumber: z.string().min(6, "Please enter a valid mobile number."),
   workshopId: z.string(),
   workshopTitle: z.string(),
 });

@@ -35,7 +35,15 @@ const nextConfig: NextConfig = {
         };
     }
     return config;
-  }
+  },
+  async rewrites() {
+    return [
+      {
+        source: '/favicon.ico',
+        destination: '/images/Logo-BP.png',
+      },
+    ];
+  },
 };
 
 export default nextConfig;

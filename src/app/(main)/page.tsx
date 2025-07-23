@@ -262,7 +262,7 @@ export default function HomePage() {
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div className="text-center md:text-left">
               <h1 className="font-headline text-4xl sm:text-5xl font-bold mb-6 text-primary leading-tight">
-                Creative Classes for Brighter Futures in Kuwait
+                Engaging Kids Classes for Brighter Futures in Kuwait
               </h1>
               <p className="text-base sm:text-lg text-muted-foreground mb-8 max-w-lg mx-auto md:mx-0">
                 Let the child be the director, and the actor in his own play. We foster creativity and confidence in our Salmiya-based hub.

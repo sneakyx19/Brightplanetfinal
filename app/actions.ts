@@ -95,7 +95,7 @@ export async function submitInquiry(
 const workshopSignupSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters."),
   email: z.string().email("Invalid email address."),
-  mobileNumber: z.string().min(8, "Please enter a valid mobile number."),
+  mobileNumber: z.string().min(6, "Please enter a valid mobile number."),
   workshopId: z.string().min(1, "Workshop ID is missing."),
   workshopTitle: z.string().min(1, "Workshop title is missing."),
 });

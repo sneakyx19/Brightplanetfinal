@@ -20,8 +20,8 @@ export const metadata: Metadata = {
   description: siteConfig.description,
   keywords: siteConfig.keywords,
   icons: {
-    icon: '/images/Logo-BP.png',
-    shortcut: '/images/Logo-BP.png',
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
     apple: '/images/Logo-BP.png',
   },
   openGraph: {

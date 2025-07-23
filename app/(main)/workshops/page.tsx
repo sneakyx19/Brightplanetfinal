@@ -6,9 +6,6 @@ import { WorkshopCard } from '@/components/kidsverse/workshop-card';
 import { workshopsData, type WorkshopInfo } from '@/lib/data';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { WorkshopSignupForm } from '@/components/kidsverse/workshop-signup-form';
-
-// Metadata for this page should be defined in a parent server component or layout if needed,
-// but since this page content is dynamic based on data, we will add structured data here.
 import { siteConfig } from '@/lib/metadata';
 import Head from 'next/head';
 
@@ -26,15 +23,14 @@ export default function WorkshopsPage() {
     setSelectedWorkshop(null);
   };
   
-  // Generate structured data for all workshops
   const eventsStructuredData = workshopsData.map(workshop => ({
     '@context': 'https://schema.org',
     '@type': 'Event',
     name: workshop.title,
     description: workshop.description,
     image: `${siteConfig.url}${workshop.image}`,
-    startDate: workshop.date, // This should be in ISO format in a real app
-    endDate: workshop.date,   // This should be in ISO format in a real app
+    startDate: workshop.date,
+    endDate: workshop.date,
     eventStatus: 'https://schema.org/EventScheduled',
     location: {
       '@type': 'Place',

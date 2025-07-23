@@ -121,11 +121,39 @@ export default function SchedulePage() {
     );
   }
 
+  const eventsStructuredData = scheduleData.map(event => ({
+    '@context': 'https://schema.org',
+    '@type': 'Event',
+    name: event.title,
+    description: event.description || `Join our ${event.title} at Bright Planet Hub.`,
+    startDate: event.startTime,
+    endDate: event.endTime,
+    eventStatus: 'https://schema.org/EventScheduled',
+    location: {
+      '@type': 'Place',
+      name: siteConfig.name,
+      address: {
+          '@type': 'PostalAddress',
+          streetAddress: 'Villa 8, Medinaty Tower, Block 5',
+          addressLocality: 'Salmiya',
+          addressCountry: 'KW'
+      }
+    },
+    organizer: {
+      '@type': 'Organization',
+      name: siteConfig.name,
+      url: siteConfig.url
+    }
+  }));
+
   return (
     <>
     <Head>
         <title>Class and Workshop Schedule | Bright Planet Hub Kuwait</title>
         <meta name="description" content="View the class schedule for Bright Planet Hub in Salmiya, Kuwait. Find dates and times for our kids classes, workshops, and check venue availability." />
+        <script type="application/ld+json">
+          {JSON.stringify(eventsStructuredData)}
+        </script>
     </Head>
     <div className="space-y-12">
       <section className="text-center">
