@@ -3,8 +3,8 @@ import { ContactPageClient } from '@/components/kidsverse/contact-page-client';
 import { siteConfig } from '@/lib/metadata';
 import type { Metadata } from 'next';
 
-const pageTitle = 'Contact Us';
-const pageDescription = "We'd love to hear from you! Whether you have questions, want to book a class, or rent our venue, feel free to reach out to Bright Planet Hub.";
+const pageTitle = 'Contact Bright Planet Hub in Salmiya, Kuwait';
+const pageDescription = "We'd love to hear from you! Contact Bright Planet Hub in Salmiya for questions about our kids classes, venue rental, or career counselling services.";
 
 export const metadata: Metadata = {
   title: pageTitle,

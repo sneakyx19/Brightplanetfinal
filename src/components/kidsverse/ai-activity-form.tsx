@@ -21,7 +21,7 @@ import { useFormStatus } from 'react-dom';
 import { generateActivityPlanAction, type ActivityPlanState } from "@/app/actions";
 import { useToast } from "@/hooks/use-toast";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Sparkles, AlertTriangle } from "lucide-react";
+import { Sparkles, AlertTriangle, Loader2 } from "lucide-react";
 
 const activityPlanSchema = z.object({
   childAge: z.coerce.number().min(1, "Age must be at least 1").max(18, "Age must be 18 or less."),
@@ -39,11 +39,8 @@ function SubmitButton() {
 
   return (
     <Button type="submit" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground" disabled={pending}>
-      {pending ? "Generating Plan..." : (
-        <>
-          <Sparkles className="mr-2 h-4 w-4" /> Generate Plan
-        </>
-      )}
+      {pending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Sparkles className="mr-2 h-4 w-4" />}
+      {pending ? "Generating Plan..." : "Generate Plan"}
     </Button>
   );
 }
@@ -52,22 +49,23 @@ export function AiActivityForm() {
   const [state, formAction] = useActionState(generateActivityPlanAction, initialState);
   const [generatedPlan, setGeneratedPlan] = useState<string | null>(null);
   const { toast } = useToast();
-  
+  const { pending } = useFormStatus();
+
   const form = useForm<ActivityPlanFormValues>({
     resolver: zodResolver(activityPlanSchema),
     defaultValues: {
       childAge: '' as any,
       preferences: "",
     },
+    mode: 'onSubmit',
+    reValidateMode: 'onChange',
   });
-
-  const { pending } = useFormStatus();
 
   useEffect(() => {
     if (state.message && !state.success) {
       toast({
-        title: "Error Generating Plan",
-        description: state.errors?.general || state.message,
+        title: "Error",
+        description: state.message,
         variant: "destructive",
       });
     }
@@ -79,14 +77,19 @@ export function AiActivityForm() {
       });
       form.reset({ childAge: '' as any, preferences: '' });
     }
+     if (!state.success && state.errors) {
+      if (state.errors.childAge) form.setError('childAge', { type: 'server', message: state.errors.childAge[0] });
+      if (state.errors.preferences) form.setError('preferences', { type: 'server', message: state.errors.preferences[0] });
+    }
   }, [state, toast, form]);
 
   useEffect(() => {
+    // When a new generation starts, clear the old plan
     if (pending) {
       setGeneratedPlan(null);
     }
   }, [pending]);
-
+  
 
   return (
     <div className="grid md:grid-cols-2 gap-10 items-start">
@@ -100,14 +103,6 @@ export function AiActivityForm() {
               <form
                 action={formAction}
                 className="space-y-6"
-                onSubmit={(evt) => {
-                    form.handleSubmit((data) => {
-                        const formData = new FormData();
-                        formData.append('childAge', String(data.childAge));
-                        formData.append('preferences', data.preferences);
-                        formAction(formData);
-                    })(evt);
-                }}
               >
                 <FormField
                   control={form.control}
@@ -118,7 +113,7 @@ export function AiActivityForm() {
                       <FormControl>
                         <Input type="number" placeholder="e.g., 5" {...field} />
                       </FormControl>
-                      <FormMessage>{state.errors?.childAge?.[0]}</FormMessage>
+                      <FormMessage />
                     </FormItem>
                   )}
                 />
@@ -138,7 +133,7 @@ export function AiActivityForm() {
                       <FormDescription>
                         Enter a comma-separated list of interests.
                       </FormDescription>
-                      <FormMessage>{state.errors?.preferences?.[0]}</FormMessage>
+                      <FormMessage />
                     </FormItem>
                   )}
                 />

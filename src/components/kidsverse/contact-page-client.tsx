@@ -5,11 +5,15 @@ import { useSearchParams } from 'next/navigation';
 import { InquiryForm } from '@/components/kidsverse/inquiry-form';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Mail, Phone, MapPin } from 'lucide-react';
+import { Suspense } from 'react';
 
-export function ContactPageClient() {
+function ContactFormWrapper() {
   const searchParams = useSearchParams();
   const subject = searchParams.get('subject') || '';
+  return <InquiryForm defaultSubject={subject} />;
+}
 
+export function ContactPageClient() {
   return (
     <div className="space-y-12">
       <section className="text-center">
@@ -26,7 +30,9 @@ export function ContactPageClient() {
             <CardDescription>Send us a message directly.</CardDescription>
           </CardHeader>
           <CardContent>
-            <InquiryForm defaultSubject={subject} />
+            <Suspense fallback={<div>Loading form...</div>}>
+              <ContactFormWrapper />
+            </Suspense>
           </CardContent>
         </Card>
 
@@ -52,7 +58,7 @@ export function ContactPageClient() {
                 <MapPin className="h-5 w-5 mr-3 text-primary mt-1" />
                 <div>
                   Bright Planet Hub<br />
-                  5 6th St, Lane 2nd<br />
+                  Villa 8, Medinaty Tower<br />
                   Block 5, Salmiya, Kuwait
                 </div>
               </div>

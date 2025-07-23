@@ -7,6 +7,8 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { scheduleData, type ScheduleEvent } from '@/lib/data';
 import { Badge } from '@/components/ui/badge';
 import { format, parseISO, isSameDay, isValid, getDay, setHours, setMinutes, setSeconds, setMilliseconds } from 'date-fns';
+import { siteConfig } from '@/lib/metadata';
+import Head from 'next/head';
 
 export default function SchedulePage() {
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
@@ -120,6 +122,11 @@ export default function SchedulePage() {
   }
 
   return (
+    <>
+    <Head>
+        <title>Class and Workshop Schedule | Bright Planet Hub Kuwait</title>
+        <meta name="description" content="View the class schedule for Bright Planet Hub in Salmiya, Kuwait. Find dates and times for our kids classes, workshops, and check venue availability." />
+    </Head>
     <div className="space-y-12">
       <section className="text-center">
         <h1 className="font-headline text-4xl md:text-5xl font-bold text-primary mb-4">Our Schedule</h1>
@@ -178,5 +185,6 @@ export default function SchedulePage() {
         </Card>
       </div>
     </div>
+    </>
   );
 }

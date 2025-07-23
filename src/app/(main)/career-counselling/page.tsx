@@ -7,8 +7,8 @@ import { Briefcase, GraduationCap, Sparkles, CheckCircle } from 'lucide-react';
 import type { Metadata } from 'next';
 import { siteConfig } from '@/lib/metadata';
 
-const pageTitle = 'Career Counselling for Higher Studies';
-const pageDescription = 'Expert career counselling for students from Grade 8 onwards, focusing on higher studies and education abroad in partnership with AARA Consultancy.';
+const pageTitle = 'Career Counselling for Higher Studies in Kuwait';
+const pageDescription = 'Expert career counselling in Kuwait for students from Grade 8 onwards. We guide students on higher studies and education abroad in partnership with AARA Consultancy.';
 
 export const metadata: Metadata = {
   title: pageTitle,

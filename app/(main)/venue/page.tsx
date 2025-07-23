@@ -8,8 +8,8 @@ import { CheckSquare } from 'lucide-react';
 import type { Metadata } from 'next';
 import { siteConfig } from '@/lib/metadata';
 
-const pageTitle = 'Venue & Office Space Rental';
-const pageDescription = 'Rent our spacious, child-friendly venue for birthday parties, workshops, and activities. We also offer professional office workspace rentals with modern amenities.';
+const pageTitle = 'Venue & Office Space Rental in Salmiya, Kuwait';
+const pageDescription = 'Rent our child-friendly venue in Salmiya for birthday parties, workshops, and activities. We also offer professional office workspace rentals with modern amenities in Kuwait.';
 
 export const metadata: Metadata = {
   title: pageTitle,
@@ -36,7 +36,7 @@ export default function VenuePage() {
       description: venueInfo.description,
       address: {
         '@type': 'PostalAddress',
-        streetAddress: '5 6th St, Lane 2nd, Block 5',
+        streetAddress: 'Villa 8, Medinaty Tower, Block 5',
         addressLocality: 'Salmiya',
         addressCountry: 'KW',
       },

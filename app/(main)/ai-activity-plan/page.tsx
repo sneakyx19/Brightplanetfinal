@@ -2,8 +2,8 @@ import { AiActivityForm } from '@/components/kidsverse/ai-activity-form';
 import { siteConfig } from '@/lib/metadata';
 import type { Metadata } from 'next';
 
-const pageTitle = 'AI Activity Plan Generator';
-const pageDescription = 'Generate custom, fun, and educational activity plans for your child based on their age and interests with our free AI tool. Perfect for parents and educators.';
+const pageTitle = 'Free AI Activity Plan Generator for Kids';
+const pageDescription = 'Generate custom, fun, and educational activity plans for your child based on their age and interests with our free AI tool. Perfect for parents and educators in Kuwait.';
 
 export const metadata: Metadata = {
   title: pageTitle,

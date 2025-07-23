@@ -3,8 +3,8 @@ import { classesData } from '@/lib/data';
 import { siteConfig } from '@/lib/metadata';
 import type { Metadata } from 'next';
 
-const pageTitle = 'Our Classes for Kids';
-const pageDescription = 'Explore all our engaging classes for kids at Bright Planet Hub, from Public Speaking and Arts to Mental Math and Yoga. Find the perfect activity to spark your child\'s curiosity and build new skills.';
+const pageTitle = 'Kids & Adult Classes in Salmiya, Kuwait';
+const pageDescription = 'Explore all our engaging classes at Bright Planet Hub in Salmiya. From Public Speaking and Arts to Mental Math and Yoga, find the perfect activity to spark your child\'s curiosity and build new skills.';
 
 export const metadata: Metadata = {
   title: pageTitle,

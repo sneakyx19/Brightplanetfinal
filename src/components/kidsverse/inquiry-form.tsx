@@ -23,16 +23,17 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useActionState, useEffect } from "react";
+import { useFormStatus } from "react-dom";
 import { submitInquiry, type InquiryFormState } from "@/app/actions";
 import { useToast } from "@/hooks/use-toast";
-import { useFormStatus } from "react-dom";
+import { Loader2 } from "lucide-react";
 
 const inquiryFormSchema = z.object({
-  name: z.string().min(2, { message: "Name must be at least 2 characters." }),
+  name: z.string().optional(),
   email: z.string().email({ message: "Invalid email address." }),
-  mobileNumber: z.string().optional(),
-  subject: z.string().min(1, { message: "Please select a subject." }),
-  message: z.string().min(10, { message: "Message must be at least 10 characters." }),
+  mobileNumber: z.string().min(1, { message: "Mobile number is required." }),
+  subject: z.string().optional(),
+  message: z.string().optional(),
 });
 
 type InquiryFormValues = z.infer<typeof inquiryFormSchema>;
@@ -47,12 +48,13 @@ interface InquiryFormProps {
 }
 
 function SubmitButton() {
-    const { pending } = useFormStatus();
-    return (
-         <Button type="submit" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground" disabled={pending}>
-           {pending ? "Sending..." : "Send Message"}
-        </Button>
-    )
+  const { pending } = useFormStatus();
+  return (
+    <Button type="submit" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground" disabled={pending}>
+       {pending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
+       {pending ? "Sending..." : "Send Message"}
+    </Button>
+  );
 }
 
 export function InquiryForm({ defaultSubject }: InquiryFormProps) {
@@ -68,39 +70,31 @@ export function InquiryForm({ defaultSubject }: InquiryFormProps) {
       subject: defaultSubject || "",
       message: "",
     },
+    // The useActionState hook will manage errors, so we don't need to revalidate on blur.
+    mode: 'onSubmit', 
+    reValidateMode: 'onChange'
   });
 
    useEffect(() => {
-    if (defaultSubject) {
-      form.setValue('subject', defaultSubject, { shouldValidate: true });
+    if (state.message) {
+      toast({
+        title: state.success ? "Message Sent!" : "Error",
+        description: state.message,
+        variant: state.success ? "default" : "destructive",
+      });
     }
-   }, [defaultSubject, form]);
-
-   useEffect(() => {
+    if (state.success) {
+      form.reset();
+    }
     if (!state.success && state.issues) {
-      // This handles server-side validation errors
-      toast({
-        title: "Invalid Information",
-        description: state.issues.join("\n"),
-        variant: "destructive",
-      });
-    } else if (state.message && state.success) {
-      // This handles the success case
-      toast({
-        title: "Message Sent!",
-        description: state.message,
-        variant: "default",
-      });
-      form.reset({ name: "", email: "", mobileNumber: "", subject: defaultSubject || "", message: "" });
-    } else if (state.message && !state.success && !state.issues) {
-      // This handles general server errors
-      toast({
-        title: "An Error Occurred",
-        description: state.message,
-        variant: "destructive",
+      // Manually set form errors from server validation
+      state.issues.forEach(issue => {
+        const field = issue.path[0] as keyof InquiryFormValues;
+        form.setError(field, { type: 'server', message: issue.message });
       });
     }
-  }, [state, toast, form, defaultSubject]);
+  }, [state, toast, form]);
+
 
   return (
     <Form {...form}>
@@ -136,7 +130,7 @@ export function InquiryForm({ defaultSubject }: InquiryFormProps) {
           name="mobileNumber"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Mobile Number (Optional)</FormLabel>
+              <FormLabel>Mobile Number</FormLabel>
               <FormControl>
                 <Input type="tel" placeholder="e.g., 91234567" {...field} />
               </FormControl>
@@ -150,7 +144,7 @@ export function InquiryForm({ defaultSubject }: InquiryFormProps) {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Subject</FormLabel>
-              <Select onValueChange={field.onChange} value={field.value} key={defaultSubject}>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>
                     <SelectValue placeholder="Select a subject" />
@@ -158,9 +152,9 @@ export function InquiryForm({ defaultSubject }: InquiryFormProps) {
                 </FormControl>
                 <SelectContent>
                   <SelectItem value="Class Booking">Class Booking</SelectItem>
+                  <SelectItem value="Career Counselling Inquiry">Career Counselling</SelectItem>
                   <SelectItem value="Workshop Registration">Workshop Registration</SelectItem>
-                  <SelectItem value="Venue Rental Inquiry">Venue Rental Inquiry</SelectItem>
-                  <SelectItem value="Career Counselling Inquiry">Career Counselling Inquiry</SelectItem>
+                  <SelectItem value="Venue Rental">Venue Rental</SelectItem>
                   <SelectItem value="General Inquiry">General Inquiry</SelectItem>
                 </SelectContent>
               </Select>

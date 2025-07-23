@@ -1,6 +1,6 @@
 
 import type { LucideIcon } from 'lucide-react';
-import { Mic, Palette, Brain, ToyBrick, Waves, PersonStanding, CalendarDays, MapPin, Users, Clock, DollarSign, BookOpen, BarChart, Target, Briefcase } from 'lucide-react';
+import { Mic, Palette, Brain, ToyBrick, Waves, PersonStanding, CalendarDays, MapPin, Users, Clock, DollarSign, BookOpen, BarChart, Target, Briefcase, Pencil, Languages, GraduationCap } from 'lucide-react';
 import { IconGymnastics, IconKarate } from '@/components/kidsverse/icons';
 
 export interface ClassInfo {
@@ -24,32 +24,21 @@ export const classesData: ClassInfo[] = [
     slug: 'public-speaking',
     name: 'Public Speaking',
     Icon: Mic,
-    description: 'Build confidence and communication skills with our engaging public speaking classes.',
+    description: 'Build confidence and communication skills with our engaging public speaking classes for all ages, including adults.',
     curriculum: [
       'Building Confidence & Overcoming Stage Fright',
       'Voice Modulation & Clear Articulation Techniques',
       'Mastering Body Language & Powerful Gestures',
       'Structuring Engaging Speeches & Compelling Stories',
       'Interactive Practice Sessions & Constructive Feedback',
-      'Fun activities to make learning enjoyable',
-      'Flexible Learning: Available in both Online and In-Person class formats'
+      'Fun activities for kids and specialized modules for adults',
+      'Flexible Learning: Available in both Online and In-Person class formats',
+      'One-on-one sessions available on request at custom times'
     ],
-    ageGroups: '7-12 years',
+    ageGroups: 'Kids and Adults',
     image: '/images/Public-Speaking-card.png',
     dataAiHint: 'public speaking',
     curriculumPdfPath: '/Public-Speaking-Course.pdf', // Path to the PDF
-  },
-  {
-    id: 'arts',
-    slug: 'arts',
-    name: 'Arts & Crafts',
-    Icon: Palette,
-    description: 'Unleash creativity with painting, drawing, sculpting, and various craft projects.',
-    curriculum: ['Color theory', 'Drawing techniques', 'Clay modeling', 'Recycled art'],
-    ageGroups: '5-10 years',
-    instructor: { name: 'Mr. Arthur', bio: 'An passionate artist and educator.', image: '/images/instructor-arthur.png' },
-    image: '/images/Arts-and-carft.png',
-    dataAiHint: 'child painting',
   },
   {
     id: 'mental-math',
@@ -57,10 +46,84 @@ export const classesData: ClassInfo[] = [
     name: 'Mental Math',
     Icon: Brain,
     description: 'Sharpen mathematical skills and speed with fun mental arithmetic techniques.',
-    curriculum: ['Abacus basics', 'Vedic math tricks', 'Speed calculations', 'Logic puzzles'],
+    curriculum: ['Abacus basics', 'Vedic math tricks', 'Speed calculations', 'Logic puzzles', 'One-on-one sessions available on request at custom times'],
     ageGroups: '6-11 years',
     image: '/images/mental-maths.png',
     dataAiHint: 'child math'
+  },
+  {
+    id: 'kids-tuition',
+    slug: 'kids-tuition',
+    name: 'Kids Tuitions',
+    Icon: GraduationCap,
+    description: 'Personalized academic support for students to excel in their studies and build a strong foundation.',
+    curriculum: [
+      'Subject-specific tutoring for Math, Science, English, and more.',
+      'Homework assistance and exam preparation strategies.',
+      'Individual attention to address specific learning gaps.',
+      'Focus on concept clarity and building confidence.',
+      'Regular progress tracking and feedback for parents.',
+      'One-on-one sessions available on request at custom times'
+    ],
+    ageGroups: 'Grade 1 - 10',
+    image: '/images/Tutions.png',
+    dataAiHint: 'child studying',
+  },
+  {
+    id: 'spoken-english',
+    slug: 'spoken-english',
+    name: 'Spoken English',
+    Icon: Languages,
+    description: 'Enhance fluency, pronunciation, and confidence in speaking English for kids and adults.',
+    curriculum: [
+      'Interactive conversational practice.',
+      'Vocabulary building and correct usage of grammar.',
+      'Pronunciation and accent reduction exercises.',
+      'Role-plays and group discussions to simulate real-life scenarios.',
+      'Public speaking and presentation skills development.',
+      'One-on-one sessions available on request at custom times'
+    ],
+    ageGroups: 'Kids and Adults',
+    image: '/images/Spoken English.png',
+    dataAiHint: 'people talking',
+    curriculumPdfPath: '/📘 English Learning & Speaking Program 2.pdf',
+  },
+  {
+    id: 'handwriting',
+    slug: 'handwriting',
+    name: 'Handwriting Classes',
+    Icon: Pencil,
+    description: 'Improve handwriting legibility, speed, and style with our specialized courses.',
+    curriculum: [
+      'Cursive and print handwriting techniques.',
+      'Proper posture and pencil grip correction.',
+      'Exercises to improve fine motor skills.',
+      'Activities to enhance writing speed and neatness.',
+      'Calligraphy basics for creative expression.',
+      'One-on-one sessions available on request at custom times'
+    ],
+    ageGroups: 'kids',
+    image: '/images/Handwriting Classes.png',
+    dataAiHint: 'child writing',
+  },
+  {
+    id: 'arts',
+    slug: 'arts',
+    name: 'Arts & Crafts',
+    Icon: Palette,
+    description: 'Unleash creativity with painting, drawing, sculpting, and various craft projects for all ages.',
+    curriculum: [
+      'For Kids: Fun-filled projects, creative exploration, introduction to drawing, painting, and clay modeling.',
+      'For Adults: Advanced techniques in various mediums, personal project development, and artistic expression.',
+      'Introduction to Color Theory and Composition.',
+      'Working with diverse materials including recycled art.',
+      'Seasonal and themed craft workshops.',
+      'One-on-one sessions available on request at custom times'
+    ],
+    ageGroups: 'Kids and Adults',
+    instructor: { name: 'Mr. Arthur', bio: 'An passionate artist and educator.', image: '/images/instructor-arthur.png' },
+    image: '/images/Arts-and-carft.png',
+    dataAiHint: 'child painting',
   },
   {
     id: 'play-school',
@@ -68,7 +131,7 @@ export const classesData: ClassInfo[] = [
     name: 'Play School Program',
     Icon: ToyBrick,
     description: 'A nurturing environment for early learners, focusing on play-based education.',
-    curriculum: ['Early literacy & numeracy', 'Social skills development', 'Motor skills activities', 'Creative play'],
+    curriculum: ['Early literacy & numeracy', 'Social skills development', 'Motor skills activities', 'Creative play', 'One-on-one sessions available on request at custom times'],
     ageGroups: '2-4 years',
     instructor: { name: 'Ms. Daisy & Team', bio: 'Experienced early childhood educators.', image: '/images/instructor-daisy.png' },
     image: '/images/Play-school-image-classes.png',
@@ -80,7 +143,7 @@ export const classesData: ClassInfo[] = [
     name: 'Swimming Lessons',
     Icon: Waves,
     description: 'Learn to swim with certified instructors in a safe and fun pool environment.',
-    curriculum: ['Water safety', 'Basic strokes (freestyle, backstroke)', 'Breathing techniques', 'Confidence building'],
+    curriculum: ['Water safety', 'Basic strokes (freestyle, backstroke)', 'Breathing techniques', 'Confidence building', 'One-on-one sessions available on request at custom times'],
     ageGroups: '4+ years (grouped by skill)',
     instructor: { name: 'Coach Finn', bio: 'Certified lifeguard and swim coach.', image: '/images/instructor-finn.png' },
     image: '/images/Swimming-image.png',
@@ -92,8 +155,16 @@ export const classesData: ClassInfo[] = [
     name: 'Yoga & Mindfulness',
     Icon: Waves, // Using Waves icon from lucide-react, as custom icons can be tricky.
     description: 'Introduce children to yoga through playful poses, mindfulness, and relaxation.',
-    curriculum: ['Animal poses', 'Breathing exercises', 'Story-based yoga', 'Mindfulness games'],
-    ageGroups: '4-9 years',
+    curriculum: [
+      'Playful animal poses and story-based yoga for kids to enhance creativity.',
+      'Foundational yoga postures (Asanas) and flow sequences (Vinyasa) for adults.',
+      'Guided breathing exercises (Pranayama) for all ages to improve focus and calmness.',
+      'Engaging mindfulness games and activities for children.',
+      'Stress reduction techniques and guided meditation for adult participants.',
+      'Improving flexibility, strength, and balance in a supportive environment.',
+      'One-on-one sessions available on request at custom times'
+    ],
+    ageGroups: 'Kids and Adults',
     instructor: { name: 'Ms. Shanti', bio: 'Certified kids yoga instructor.', image: '/images/instructor-shanti.png' },
     image: '/images/Yoga-image.png',
     dataAiHint: 'child yoga',
@@ -212,3 +283,15 @@ export const scheduleData: ScheduleEvent[] = [
   { id: 'ps-2024-08-24-1800', title: 'Public Speaking Class', type: 'class', startTime: '2024-08-24T18:00:00', endTime: '2024-08-24T19:00:00' },
   { id: 'ps-2024-08-31-1800', title: 'Public Speaking Class', type: 'class', startTime: '2024-08-31T18:00:00', endTime: '2024-08-31T19:00:00' },
 ];
+
+    
+
+    
+
+
+
+
+    
+
+
+

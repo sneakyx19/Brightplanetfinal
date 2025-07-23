@@ -86,28 +86,28 @@ const testimonialsData: Testimonial[] = [
   {
     name: "Fatima A.",
     title: "Parent of Omar (Age 7)",
-    quote: "The Public Speaking class has done wonders for Omar! He's so much more confident. The teachers in Kidsverse Hub are fantastic.",
+    quote: "The Public Speaking class has done wonders for Omar! He's so much more confident. The teachers in Bright Planet Hub are fantastic.",
     stars: 5,
     reviewed: "Public Speaking Class"
   },
   {
     name: "Ahmed K.",
     title: "Parent of Layla (Age 5)",
-    quote: "We celebrated Layla's birthday at Kidsverse Hub, and it was a dream. The venue is spacious, colorful, and perfectly equipped for children's parties. Highly recommend!",
+    quote: "We celebrated Layla's birthday at Bright Planet Hub, and it was a dream. The venue is spacious, colorful, and perfectly equipped for children's parties. Highly recommend!",
     stars: 5,
     reviewed: "Venue Rental"
   },
   {
     name: "Noora S.",
     title: "Parent of Yousef (Age 9)",
-    quote: "Yousef was struggling with math, but the Mental Math program here made it fun for him. His speed and accuracy have improved significantly. Thank you, Kidsverse Hub!",
+    quote: "Yousef was struggling with math, but the Mental Math program here made it fun for him. His speed and accuracy have improved significantly. Thank you, Bright Planet Hub!",
     stars: 5,
     reviewed: "Mental Math Class"
   },
   {
     name: "Yousef H.",
     title: "Parent of Sara & Ali",
-    quote: "Kidsverse Hub is more than just a learning center; it's a community. My children feel so happy and engaged in their Arts & Crafts sessions. The atmosphere is always so welcoming.",
+    quote: "Bright Planet Hub is more than just a learning center; it's a community. My children feel so happy and engaged in their Arts & Crafts sessions. The atmosphere is always so welcoming.",
     stars: 5,
     reviewed: "Arts & Crafts"
   },
@@ -236,8 +236,8 @@ export default function HomePage() {
     <div className="space-y-16 md:space-y-20 overflow-x-hidden">
       {/* Registration Pop-up Dialog */}
       <Dialog open={isPopupOpen} onOpenChange={setIsPopupOpen}>
-        <DialogContent className="sm:max-w-md text-center">
-          <DialogHeader>
+        <DialogContent className="max-w-[90vw] sm:max-w-md text-center rounded-lg">
+          <DialogHeader className="p-4 sm:p-6">
             <div className="mx-auto bg-primary/10 rounded-full p-3 w-fit mb-4">
                <PartyPopper className="h-10 w-10 text-primary" />
             </div>
@@ -246,7 +246,7 @@ export default function HomePage() {
               We are excited to announce that new registrations are now open for our popular classes and programs. Secure your child's spot today!
             </DialogDescription>
           </DialogHeader>
-          <DialogFooter className="sm:justify-center pt-4">
+          <DialogFooter className="sm:justify-center p-4 sm:p-6 pt-0 sm:pt-4">
             <Button size="lg" asChild className="bg-green-500 hover:bg-green-600 text-white w-full shadow-lg">
                 <a href={whatsappEnrollUrl} target="_blank" rel="noopener noreferrer">
                     Register on WhatsApp
@@ -262,10 +262,10 @@ export default function HomePage() {
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div className="text-center md:text-left">
               <h1 className="font-headline text-4xl sm:text-5xl font-bold mb-6 text-primary leading-tight">
-                BRIGHTER FUTURE FOR YOUR KIDS
+                Creative Classes for Brighter Futures in Kuwait
               </h1>
               <p className="text-base sm:text-lg text-muted-foreground mb-8 max-w-lg mx-auto md:mx-0">
-                Let the child be the director, and the actor in his own play. We foster creativity and confidence.
+                Let the child be the director, and the actor in his own play. We foster creativity and confidence in our Salmiya-based hub.
               </p>
               <Button size="lg" asChild className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-xl animate-pulse-bright rounded-xl px-8 py-3 group transition-transform hover:scale-105"><Link href="/classes">Get Started<ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" /></Link></Button>
             </div>
@@ -277,7 +277,7 @@ export default function HomePage() {
                 <div className="absolute top-0 right-0 w-[150px] h-[200px] md:w-[180px] md:h-[240px] transition-transform hover:scale-105 z-10">
                     <Image
                         src="/images/homepage-2nd-img.png"
-                        alt="A happy child at Kidsverse Hub"
+                        alt="A happy child at Bright Planet Hub"
                         fill
                         sizes="(min-width: 768px) 180px, 150px"
                         style={{objectFit: 'cover'}}
@@ -403,17 +403,11 @@ export default function HomePage() {
       <section className="relative py-12 md:py-16 bg-background text-foreground">
         <div className="container mx-auto px-4 text-center">
           <h2 className="font-headline text-3xl md:text-4xl font-semibold text-primary mb-6">
-            Our Vision for Your Child's Future
+            Our Vision
           </h2>
           <div className="max-w-3xl mx-auto space-y-6 text-lg text-muted-foreground text-left md:text-center">
             <p>
-              At Bright Planet Hub, we envision a future where every child's unique potential is not just recognized, but actively nurtured. We believe in sparking a lifelong love for learning by creating an environment where curiosity thrives, questions are celebrated, and exploration is a joyful adventure. Our goal is to light up young minds, helping them discover their passions and talents from an early age.
-            </p>
-            <p>
-              We are committed to equipping children with the essential skills they need to navigate an ever-evolving world. Beyond academics, we focus on fostering critical thinking, empowering creative expression, honing effective communication, and encouraging collaborative problem-solving. These are the building blocks that enable children to adapt, innovate, and lead with confidence.
-            </p>
-            <p>
-              Ultimately, our vision is to see children grow into well-rounded, resilient, and compassionate individuals. We aim to cultivate not just knowledge, but character; not just skills, but the wisdom to use them thoughtfully. We want to empower your child to step boldly into their future, ready to make a positive impact on the world around them, equipped with the tools to turn their dreams into reality.
+              To create a world where every child discovers their true potential early, navigates life with clarity, and grows into a confident, purpose-driven individual ready to thrive beyond the classroom.
             </p>
           </div>
         </div>
@@ -424,6 +418,23 @@ export default function HomePage() {
          <RocketIcon className="absolute bottom-1/4 right-1/4 w-10 h-10 text-orange-400 opacity-20 animate-float hidden sm:block" style={{animationDelay: '1.2s'}} />
       </section>
       
+      {/* Our Mission Section */}
+      <section className="relative py-12 md:py-16 bg-accent/50 text-foreground pt-0 md:pt-0">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="font-headline text-3xl md:text-4xl font-semibold text-primary mb-6">
+            Our Mission
+          </h2>
+          <div className="max-w-3xl mx-auto space-y-6 text-lg text-muted-foreground text-left md:text-center">
+            <p>
+              Our mission is to bridge the gap between traditional education and real-life readiness by identifying children's unique talents from the age of 7, nurturing their subconscious growth, and equipping them with clarity, confidence, and faith to shape their own future.
+            </p>
+          </div>
+        </div>
+        {/* Decorative elements */}
+        <StarIconSvg className="absolute top-10 left-5 md:left-10 w-10 h-10 md:w-12 md:h-12 text-secondary opacity-20 animate-float hidden sm:block" style={{ animationDelay: '0.3s' }} />
+        <PlanetIcon className="absolute bottom-5 right-5 md:bottom-10 md:right-10 w-12 h-12 md:w-16 md:h-16 text-primary opacity-25 animate-float hidden sm:block" style={{ animationDelay: '0.7s' }} />
+      </section>
+
       {/* Discover More Section */}
       <section className="relative py-12 md:py-16 bg-background">
         <div className="container mx-auto px-4 text-center">
@@ -478,7 +489,7 @@ export default function HomePage() {
             Hear From Our Happy Parents
           </h2>
           <p className="text-muted-foreground mb-10 max-w-2xl mx-auto">
-            We're proud of the positive experiences our families in Kuwait have at Kidsverse Hub.
+            We're proud of the positive experiences our families in Kuwait have at Bright Planet Hub.
           </p>
           <div className="relative max-w-2xl mx-auto">
             <div className="overflow-hidden">

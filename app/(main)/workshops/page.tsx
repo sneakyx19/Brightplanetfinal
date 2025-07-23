@@ -41,7 +41,7 @@ export default function WorkshopsPage() {
       name: siteConfig.name,
       address: {
           '@type': 'PostalAddress',
-          streetAddress: '5 6th St, Lane 2nd, Block 5',
+          streetAddress: 'Villa 8, Medinaty Tower, Block 5',
           addressLocality: 'Salmiya',
           addressCountry: 'KW'
       }
@@ -63,8 +63,8 @@ export default function WorkshopsPage() {
   return (
     <>
      <Head>
-        <title>Upcoming Workshops | Bright Planet Hub</title>
-        <meta name="description" content="Discover our exciting upcoming workshops! These sessions are designed to complement our courses, offering fun, hands-on experiences to help your child explore new skills and spark their creativity." />
+        <title>Upcoming Kids Workshops in Salmiya | Bright Planet Hub</title>
+        <meta name="description" content="Discover exciting upcoming kids workshops in Salmiya, Kuwait! Our sessions complement our courses, offering fun, hands-on experiences to help your child explore new skills." />
         <script type="application/ld+json">
           {JSON.stringify(eventsStructuredData)}
         </script>

@@ -46,7 +46,7 @@ export function Footer() {
                </p>
              </div>
             <p className="text-sm text-muted-foreground mt-4">
-              Salmiya, Block 5, Kuwait
+              Villa 8, Medinaty Tower, Block 5, Salmiya, Kuwait
             </p>
           </div>
         </div>

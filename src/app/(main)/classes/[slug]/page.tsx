@@ -28,8 +28,8 @@ export async function generateMetadata(
 
   const siteUrl = siteConfig.url;
   const ogImageUrl = `${siteUrl}${classInfo.image}`;
-  const title = `${classInfo.name} Class for Kids`;
-  const description = `Join our ${classInfo.name} class at Bright Planet Hub! ${classInfo.description} Perfect for children aged ${classInfo.ageGroups}.`;
+  const title = `${classInfo.name} Class for Kids in Salmiya, Kuwait`;
+  const description = `Join our ${classInfo.name} class at Bright Planet Hub! ${classInfo.description}. Perfect for children and adults in the ${classInfo.ageGroups} age range in Salmiya.`;
 
   return {
     title: title,
